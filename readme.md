@@ -4,6 +4,8 @@ This is a project to create a minimal browser-based interface for the [General T
 
 For a detailed Description of the process of deciphering the protocol, see [this blog post](https://www.tigoe.com/pcomp/code/circuits/1309/).
 
+[View the page live](https://htmlpreview.github.io/?https://raw.githubusercontent.com/tigoe/TS04-Bluetooth-Meter/master/index.html).
+
 ## References:
 
 * [Toolsmart TS04 User Guide](https://www.generaltools.com/productdoc/index/downloadpdf/type/manuals/pdf/TS04-Manual_ES-GT_011416.pdf)
