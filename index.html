@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <title>General Tools ToolSmart TS-04 Multimeter</title>
+  <script src='display.js'></script>
+  <script src='ble-ts04.js'></script>
+
+</head>
+
+<body>
+  <button onClick='connect()'>connect</button>
+  <button onClick='disconnect()'>disconnect</button>
+  <div id='display'>
+    <span>Meter: </span>
+    <span id='connected'></span> <br>
+    <span>Function: </span>
+    <span id='setting'></span><br>
+    <span>Reading: </span>
+    <span id='value'></span>
+    <span id='units'></span>
+    <span id='acDc'></span><br>
+    <span id='autoRange'></span>
+    <span id='hold'></span>
+  </div>
+</body>
+</html>
