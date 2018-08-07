@@ -2,7 +2,7 @@
 
 This is a project to create a minimal browser-based interface for the [General Tools TS-04 Multimeter](https://www.generaltools.com/ts04-digitalmultimeter). My intention is to make it possible to build alternative interfaces for the meter for people with a varying range of sensory abilities. Specifically, I want to make a web interface for the mooshimeter that is accessible to low-vision users.
 
-For a detailed Description of the process of deciphering the protocol, see [this blog post](https://www.tigoe.com/pcomp/code/circuits/1309/).
+For a detailed Description of the process of deciphering the protocol, see [this blog post](https://www.tigoe.com/pcomp/code/javascript/1309/).
 
 [View the page live](https://htmlpreview.github.io/?https://raw.githubusercontent.com/tigoe/TS04-Bluetooth-Meter/master/index.html).
 

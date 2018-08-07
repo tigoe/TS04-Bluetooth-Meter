@@ -96,7 +96,7 @@ function decode(data) {
 
   /*
   get the numeric vslues. Each seven-segment LCD numeral is split across
-  two bytes. See http://blog.post for more details
+  two bytes. See https://www.tigoe.com/pcomp/code/javascript/1309/ for more details
   */
 
   //  byte 1 bits 0-1 are AC/DC:
