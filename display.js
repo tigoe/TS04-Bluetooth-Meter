@@ -9,44 +9,51 @@ by Tom Igoe
 
 function fillDisplay(thisMeter) {
   // Is the meter connected or not?
-  document.getElementById('connected').innerHTML = 'Connected';
+console.log('update');
+  if (thisMeter.status !== null) {
+    document.getElementById('status').value = thisMeter.status;
+  } else {
+    document.getElementById('status').value = 'Connected';
+  }
   // assemble the meter reading's value, units, and order of magnitude:
-  document.getElementById('value').innerHTML = thisMeter.negativePolarity
-    + thisMeter.value;
-  document.getElementById('units').innerHTML =  thisMeter.magnitude
-    + thisMeter.units;
+  document.getElementById('value').value = thisMeter.negativePolarity
+  + thisMeter.value;
+  document.getElementById('units').value =  thisMeter.magnitude
+  + thisMeter.units;
   // IF measuring voltage or amperage, indicate AC/DC:
-  if (thisMeter.units === 'V' || thisMeter.units === 'A') {
-    document.getElementById('acDc').innerHTML = thisMeter.acDc;
+  if (thisMeter.units === 'volts' || thisMeter.units === 'amps') {
+    document.getElementById('acDc').value = thisMeter.acDc;
+  } else {
+    document.getElementById('acDc').value = '';
   }
   // if measuring non-contact voltage, indicate that, and clear units:
   if (thisMeter.ncv) {
-    document.getElementById('value').innerHTML = thisMeter.ncv;
-    document.getElementById('units').innerHTML = '';
+    document.getElementById('value').value = thisMeter.ncv;
+    document.getElementById('units').value = '';
   }
   // is auto-ranging on?
   if (thisMeter.autoRange) {
-    document.getElementById('autoRange').innerHTML = 'AutoRange';
+    document.getElementById('autoRange').value = 'AutoRange';
   } else {
-    document.getElementById('autoRange').innerHTML = '';
+    document.getElementById('autoRange').value = '';
   }
   // is the hold button on?
   if (thisMeter.hold) {
-    document.getElementById('hold').innerHTML = 'hold';
+    document.getElementById('hold').value = 'hold';
   } else {
-    document.getElementById('hold').innerHTML = '';
+    document.getElementById('hold').value = '';
   }
   // what setting are you on?
-  document.getElementById('setting').innerHTML = thisMeter.setting;
+  document.getElementById('setting').value = thisMeter.setting;
 }
 
 // clear all the display elements except the connection status:
 function clearDisplay(meter) {
-  document.getElementById('connected').innerHTML = 'Disconnected';
-  document.getElementById('value').innerHTML = '';
-  document.getElementById('units').innerHTML =  '';
-  document.getElementById('acDc').innerHTML = '';
-  document.getElementById('autoRange').innerHTML = '';
-  document.getElementById('hold').innerHTML = '';
-  document.getElementById('setting').innerHTML = '';
+  document.getElementById('connected').value = 'Disconnected';
+  document.getElementById('value').value = '';
+  document.getElementById('units').value =  '';
+  document.getElementById('acDc').value = '';
+  document.getElementById('autoRange').value = '';
+  document.getElementById('hold').value = '';
+  document.getElementById('setting').value = '';
 }

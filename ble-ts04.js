@@ -17,6 +17,9 @@ var meter;
 
 // ------------------ Bluetooth Connection functions
 function connect() {
+  // TODO: implement navigator.bluetooth.setBluetoothManualChooser()
+  // to replace scanning chooser with something more accessible.
+
   // search for Bluetooth devices: opens the BLE search window:
   navigator.bluetooth.requestDevice({
     filters: [{ services: [serviceUuid] }]
@@ -84,15 +87,16 @@ function decode(data) {
     acDc: '',             // AC or DC, for V and A readings
     setting: null,        // what setting (function) you're on
     hold: null,           // hold current reading onscreen
-    autoRange: null,       // autoranging feature
-    ncv: false            // non-contact AC voltage beep
+    autoRange: null,      // autoranging feature
+    ncv: false,           // non-contact AC voltage beep
+    status: null          // device status
   }
   //  debugging the raw data:
-   let reading =''
-   for (let i=0; i< data.length; i++) {
-     reading += data[i].toString(2) + ' ';
-   }
-   console.log(reading);
+  let reading =''
+  for (let i=0; i< data.length; i++) {
+    reading += data[i].toString(2) + ' ';
+  }
+  // console.log(reading);
 
   /*
   get the numeric vslues. Each seven-segment LCD numeral is split across
@@ -105,7 +109,7 @@ function decode(data) {
   } else if ((data[1] & 0b1) > 0) {
     meter.acDc = 'AC';
   } else {
-      meter.acDc = '';
+    meter.acDc = '';
   }
   // byte 1 but 2 is autoranging:
   meter.autoRange = ((data[1] & 0b100) > 0);
@@ -132,41 +136,48 @@ function decode(data) {
   meter.value = readout;
 
   // get units of measurement:
-  // TODO: check for unique values of amperage and battery settings
-  switch (data[7]) {
-    case 0b01001000:    // 72
-    meter.units ='Ω';   // ohms
-    meter.setting = 'Resistance';
-    break;
-    case 0b01001001:    // 73
-    meter.units  = 'A'; // amps
+  // bit 6 in data[7] is always on, so mask it out:
+  let masked =  data[7] - 0b01000000;
+  if (( masked & 0b1) > 0) {
+    meter.units  = 'amps'; // amps
     meter.setting = 'Amperage';
-    break;
-    case 0b01001010:    // 74
-    meter.units = 'V';  // volts
+  }
+  if ((data[7] & 0b1000000) === 0) {
+    console.log(' bit 6 is off');
+  }
+  if ((masked & 0b10) > 0) {
+    meter.units = 'volts';  // volts
     meter.setting = 'Voltage';
-    break;
-    case 0b01011000:    // 88
-    meter.units = '°F'; // degrees Fahrenheit
+  }
+  if ((masked & 0b10000) > 0) {
+    meter.units = 'degrees Fahrenheit'; // degrees Fahrenheit
     meter.setting = 'Temperature';
-    break;
-    case 0b01101000:    // 104
-    meter.units = '°C'; // degrees Centigrade
+  }
+  if ((masked & 0b100000) > 0) {
+    meter.units = 'degrees Celsius'; // degrees Centigrade
     meter.setting = 'Temperature';
-    break;
-    case 0b11001000:    // 200
+  }
+  if ((masked & 0b10000000) > 0) {
     meter.units = 'NCV';// non-contact AC voltage check
     meter.setting = 'Non-Contact AC Voltage Check';
-    break;
   }
+
+  if ((masked & 0b00001000) > 0) {
+    meter.status = "low battery";
+  }
+  if ((data[6] & 0b00100000) > 0) {
+    meter.units = 'ohms';
+    meter.setting = 'Resistance';
+  }
+
   // get modifiers from data byte 6:
   // bit 0: milli:
   if ((data[6] & 0b1) > 0) {
-    meter.magnitude = 'm';
+    meter.magnitude = 'milli';
   }
   // bit 2: mega
   if ((data[6] & 0b100) > 0) {
-    meter.magnitude = 'M';
+    meter.magnitude = 'mega';
   }
   // bit 3: continuity:
   if ((data[6] & 0b1000) > 0) {
@@ -178,14 +189,14 @@ function decode(data) {
   }
   // Byte 5 bit 6: kilo
   if ((data[5] & 0b1000000) > 0) {
-    meter.magnitude = 'k';
+    meter.magnitude = 'kilo';
   }
   // bit 7: hold
   meter.hold = ((data[6] & 0b10000000) > 0);
 
   // Byte 5 bit 4: micro
   if ((data[5] & 0b10000) > 0){
-    meter.magnitude = 'µ';
+    meter.magnitude = 'micro';
   }
   // Byte 5 bit 7: diodeCheck
   if ((data[5] & 0b10000000) > 0) {
