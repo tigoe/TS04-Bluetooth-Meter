@@ -9,7 +9,6 @@ by Tom Igoe
 
 function fillDisplay(thisMeter) {
   // Is the meter connected or not?
-console.log('update');
   if (thisMeter.status !== null) {
     document.getElementById('status').value = thisMeter.status;
   } else {

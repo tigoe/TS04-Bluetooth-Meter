@@ -92,11 +92,11 @@ function decode(data) {
     status: null          // device status
   }
   //  debugging the raw data:
-  let reading =''
-  for (let i=0; i< data.length; i++) {
-    reading += data[i].toString(2) + ' ';
-  }
-  // console.log(reading);
+  // let reading ='0x'
+  // for (let i=0; i< data.length; i++) {
+  //   reading += data[i].toString(16);
+  // }
+  //  console.log(reading);
 
   /*
   get the numeric vslues. Each seven-segment LCD numeral is split across

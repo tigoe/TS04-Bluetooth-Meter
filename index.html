@@ -9,28 +9,20 @@
 </head>
 
 <body>
-  TS04 Meter
-  <br>
+
+  <div id='display'>
+      <label>Meter:<output id='status'>disconnected</output></label><br>
+      <label>Setting:<output id='setting'></output></label> <br>
+      <label>Units: <output id='units' ></output></label><br>
+      <label>Current Direction:<output id='acDc'></output> </label><br>
+      <output id='autoRange'></output>
+      <output id='hold'></output><br>
+  </div>
+  <div aria-live="off">
+    <label>Reading: <output id='value'></label></output>
+  </div>
   <button onClick='connect()'>connect</button>
   <button onClick='disconnect()'>disconnect</button>
 
-  <div id='display'>
-    <div  aria-live="polite" aria-atomic="true">
-      <label for="status">Meter: </label><output id='status' >disconnected</output><br>
-      <label for="setting" >Setting: </label> <output id='setting' ></output><br>
-    </div>
-
-    <label for="value">Reading: </label> <output id='value' aria-live="off"></output>
-
-    <div  aria-live="polite" aria-atomic="true">
-      <label for="units">Units: </label>  <output id='units' ></output><br>
-      <label for="acDc">Current Direction: </label>  <output id='acDc' ></output><br>
-      <output id='autoRange' ></output>
-      <output id='hold' ></output><br>
-    </div>
-
-
-
-  </div>
 </body>
 </html>
