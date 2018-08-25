@@ -11,15 +11,15 @@
 <body>
 
   <div id='display'>
-      <label>Meter:<output id='status'>disconnected</output></label><br>
-      <label>Setting:<output id='setting'></output></label> <br>
-      <label>Units: <output id='units' ></output></label><br>
-      <label>Current Direction:<output id='acDc'></output> </label><br>
-      <output id='autoRange'></output>
-      <output id='hold'></output><br>
+      <label aria-live="polite">Meter:<output id='status'>disconnected</output></label><br>
+      <label aria-live="polite">Setting:<output id='setting'></output></label> <br>
+      <label aria-live="polite">Units: <output id='units'></output></label><br>
+      <label aria-live="polite">Current Direction:<output id='acDc'></output> </label><br>
+      <output id='autoRange' aria-live="polite" ></output>
+      <output id='hold' aria-live="polite"></output><br>
   </div>
-  <div aria-live="off">
-    <label>Reading: <output id='value'></label></output>
+  <div>
+    <label aria-live="off">Reading: <output id='value'></label></output>
   </div>
   <button onClick='connect()'>connect</button>
   <button onClick='disconnect()'>disconnect</button>
