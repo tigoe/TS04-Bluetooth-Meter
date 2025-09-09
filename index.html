@@ -5,7 +5,11 @@
   <title>General Tools ToolSmart TS-04 Multimeter</title>
   <script src='display.js'></script>
   <script src='ble-ts04.js'></script>
-
+  <style>
+    #display {
+      font-size: 36px;
+    }
+  </style>
 </head>
 
 <body>
@@ -17,8 +21,6 @@
       <label aria-live="polite">Current Direction:<output id='acDc'></output> </label><br>
       <output id='autoRange' aria-live="polite" ></output>
       <output id='hold' aria-live="polite"></output><br>
-  </div>
-  <div>
     <label aria-live="off">Reading: <output id='value'></label></output>
   </div>
   <button onClick='connect()'>connect</button>
